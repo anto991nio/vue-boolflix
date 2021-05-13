@@ -4,7 +4,7 @@ new Vue({
         tmdbApiKey: "103fbd9e3b904cfeed55ceaf1f1fc5a2",
         textToSearch: "",
         movieList: [],
-        tvSeriesList: []
+        tvSeriesList: [],
     },
     methods: {
         // Questa funziona ricerca tramite la parola inserita dall'utente dilm e sierie tv
@@ -38,7 +38,7 @@ new Vue({
 
           this.axiosSearch("movie");
             this.axiosSearch("tv");
-        
+            console.log(bandiera + "")
         },
     }
 })
