@@ -31,14 +31,26 @@ new Vue({
                         })
                     }
                 })
-        },
+        },createStars(rating){
+
+            let vote = Math.ceil(rating / 2);
+        
+            let stars = '';
+            for (let i= 1; i <= 5; i++){
+              if(i <= vote){
+                stars += `<i class="fa fa-star" aria-hidden="true"></i>`
+              } else{
+                stars += `<i class="fa fa-star-o" aria-hidden="true"></i>`
+              }
+            }
+            return stars;
+          },
 
         //Questa funziona invoca al click o al keyup la funziona di ricerca film o serie tv
         searchToClick() {
 
           this.axiosSearch("movie");
             this.axiosSearch("tv");
-            console.log(bandiera + "")
         },
     }
 })

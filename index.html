@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Boolflix</title>
@@ -24,8 +25,9 @@
                 <img :src="'https://image.tmdb.org/t/p/w342' + movies.poster_path" alt="">
                 <p>Titolo :{{movies.title}}</p>
                 <p>Titolo Orgiginale:{{movies.original_title}}</p>
-               <span>Lingua</span> <span :class="'flag-icon flag-icon-' + movies.original_language"></span>
-                <p>Voto:{{movies.vote_average}}</p>
+                <span>Lingua</span> <span :class="'flag-icon flag-icon-' + movies.original_language"></span>           
+                <p>Voto:{{createStars(movies.vote_average)}}</p>
+              
             </li>
 
         </ul>
@@ -35,9 +37,9 @@
                 <p>Titolo :{{series.title}}</p>
                 <p>Titolo Orgiginale:{{series.original_title}}</p>
                 <span>Lingua</span> <span :class="'flag-icon flag-icon-'+ series.original_language"></span>
-                <p>Voto:{{series.vote_average}}</p>
-            </li>
+                <p>Voto:{{createStars(series.vote_average)}}</p>
 
+            </li>
         </ul>
     </div>
 
