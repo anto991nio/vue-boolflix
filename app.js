@@ -5,6 +5,7 @@ new Vue({
         textToSearch: "",
         movieList: [],
         tvSeriesList: [],
+        
     },
     methods: {
         // Questa funziona ricerca tramite la parola inserita dall'utente dilm e sierie tv
@@ -31,25 +32,30 @@ new Vue({
                         })
                     }
                 })
-        },createStars(rating){
+
+
+
+        },
+        //questa funzione genera le stelle in base alla votazione.
+        createStars(rating) {
 
             let vote = Math.ceil(rating / 2);
-        
-            let stars = '';
-            for (let i= 1; i <= 5; i++){
-              if(i <= vote){
-                stars += `<i class="fa fa-star" aria-hidden="true"></i>`
-              } else{
-                stars += `<i class="fa fa-star-o" aria-hidden="true"></i>`
-              }
+
+            const stars = [];
+            for (let i = 1; i <= 5; i++) {
+                if (i <= vote) {
+                    stars.push('<i class="fa fa-star" aria-hidden="true"></i>') 
+                } else {
+                    stars.push('<i class="fa fa-star-o" aria-hidden="true"></i>') 
+                }
             }
             return stars;
-          },
+        },
 
         //Questa funziona invoca al click o al keyup la funziona di ricerca film o serie tv
         searchToClick() {
 
-          this.axiosSearch("movie");
+            this.axiosSearch("movie");
             this.axiosSearch("tv");
         },
     }

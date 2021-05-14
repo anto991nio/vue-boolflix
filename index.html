@@ -26,7 +26,9 @@
                 <p>Titolo :{{movies.title}}</p>
                 <p>Titolo Orgiginale:{{movies.original_title}}</p>
                 <span>Lingua</span> <span :class="'flag-icon flag-icon-' + movies.original_language"></span>           
-                <p>Voto:{{createStars(movies.vote_average)}}</p>
+                <p v-for="stars in createStars(movies.vote_average)">
+                    {{stars}}
+                </p>
               
             </li>
 
