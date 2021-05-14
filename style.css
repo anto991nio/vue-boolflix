@@ -1,9 +1,17 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .flag-icon-en{
     background-image: url(41G0-4KDjbL._AC_SX450_.jpg);
 }
+nav{
+    background-color: black;
+}
 
-.color-star{
-
-    
-    
+h1{
+    color: rgb(229, 9, 20);
 }

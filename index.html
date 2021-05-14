@@ -15,9 +15,12 @@
 
 <body>
     <div id="app">
+        <nav>
+            <h1>BOOLFLIX</h1>
+            <input type="text" v-model="textToSearch" @keyup.enter="searchToClick">
+            <button @click="searchToClick">Cerca</button>
+        </nav>
 
-        <input type="text" v-model="textToSearch" @keyup.enter="searchToClick">
-        <button @click="searchToClick">Cerca</button>
 
 
         <ul>Film
@@ -25,11 +28,9 @@
                 <img :src="'https://image.tmdb.org/t/p/w342' + movies.poster_path" alt="">
                 <p>Titolo :{{movies.title}}</p>
                 <p>Titolo Orgiginale:{{movies.original_title}}</p>
-                <span>Lingua</span> <span :class="'flag-icon flag-icon-' + movies.original_language"></span>           
-                <p v-for="stars in createStars(movies.vote_average)">
-                    {{stars}}
-                </p>
-              
+                <span>Lingua</span> <span :class="'flag-icon flag-icon-' + movies.original_language"></span>
+                <i class="fa fa-star" aria-hidden="true" v-for="stars in createStarsFull(movies.vote_average)"></i><i class="fa fa-star-o" aria-hidden="true" v-for="strasempty in createStarsEmpty(movies.vote_average)"></i>
+
             </li>
 
         </ul>
@@ -39,7 +40,9 @@
                 <p>Titolo :{{series.title}}</p>
                 <p>Titolo Orgiginale:{{series.original_title}}</p>
                 <span>Lingua</span> <span :class="'flag-icon flag-icon-'+ series.original_language"></span>
-                <p>Voto:{{createStars(series.vote_average)}}</p>
+                <i class="fa fa-star" aria-hidden="true" v-for="stars in createStarsFull(series.vote_average)"></i><i class="fa fa-star-o" aria-hidden="true" v-for="strasempty in createStarsEmpty(series.vote_average)"></i>
+
+                
 
             </li>
         </ul>

@@ -4,8 +4,7 @@ new Vue({
         tmdbApiKey: "103fbd9e3b904cfeed55ceaf1f1fc5a2",
         textToSearch: "",
         movieList: [],
-        tvSeriesList: [],
-        
+        tvSeriesList: [],   
     },
     methods: {
         // Questa funziona ricerca tramite la parola inserita dall'utente dilm e sierie tv
@@ -37,19 +36,34 @@ new Vue({
 
         },
         //questa funzione genera le stelle in base alla votazione.
-        createStars(rating) {
+        createStarsFull(rating) {
 
             let vote = Math.ceil(rating / 2);
 
             const stars = [];
+            
             for (let i = 1; i <= 5; i++) {
                 if (i <= vote) {
-                    stars.push('<i class="fa fa-star" aria-hidden="true"></i>') 
-                } else {
-                    stars.push('<i class="fa fa-star-o" aria-hidden="true"></i>') 
-                }
-            }
+                    stars.push(1) 
+                } 
+        }
+
             return stars;
+
+        },
+        createStarsEmpty(rating) {
+
+            let vote = Math.ceil(rating / 2);
+
+            const stars = [];
+            
+            for (let i = vote; i < 5; i++) {
+                    stars.push(1) 
+                
+        }
+
+            return stars;
+
         },
 
         //Questa funziona invoca al click o al keyup la funziona di ricerca film o serie tv
