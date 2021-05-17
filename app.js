@@ -3,12 +3,18 @@ new Vue({
     data: {
         tmdbApiKey: "103fbd9e3b904cfeed55ceaf1f1fc5a2",
         textToSearch: "",
-        movieList: [],
-        tvSeriesList: [],
-        listafilm:false
-        
+        movieList: false,
+        tvSeriesList: false,
+        genresTv: [],
+        genresMovie: [],
+        filteredDataMovie:[],
+        genreToFilterMovie:"",
+        genreToFilterSeries:"",
+        filteredDataSeries:[]
+
     },
-    methods: {
+    methods:
+    {
         // Questa funziona ricerca tramite la parola inserita dall'utente dilm e sierie tv
         axiosSearch(type) {
             const axiosOption = {
@@ -22,14 +28,22 @@ new Vue({
             axios.get("https://api.themoviedb.org/3/search/" + type, axiosOption)
                 .then((resp) => {
                     if (type === "movie") {
-                        this.listafilm=true
                         this.movieList = resp.data.results
-
-                    } else if (type === "tv") {
+                        this.filteredDataMovie = resp.data.results
+                    }
+                    else if (type === "tv") {
                         this.tvSeriesList = resp.data.results.map((tvShow) => {
                             tvShow.original_title = tvShow.original_name
                             tvShow.title = tvShow.name
-                            this.listafilm=true
+
+
+
+                            return tvShow
+                        })
+                        this.filteredDataSeries = resp.data.results.map((tvShow) => {
+                            tvShow.original_title = tvShow.original_name
+                            tvShow.title = tvShow.name
+
 
 
                             return tvShow
@@ -61,44 +75,88 @@ new Vue({
 
         },
 
-        getImgSrc(movie){
-            if(movie.poster_path){
+        getImgSrc(movie) {
+            if (movie.poster_path) {
                 return `https://image.tmdb.org/t/p/w342${movie.poster_path}`;
 
-            }else{
-               return "img/832px-No-Image-Placeholder.svg.png"
+            } else {
+                return "img/832px-No-Image-Placeholder.svg.png"
             }
         },
-        getCast(movie){
+        getCast(movie) {
             const axiosOption = {
                 params: {
                     api_key: this.tmdbApiKey,
                     language: "it-IT"
                 }
             };
-            axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/credits`,axiosOption).then(resp=>{
-                Vue.set(movie, 'actors', resp.data.cast.slice(0,5));
+            axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/credits`, axiosOption).then(resp => {
+                Vue.set(movie, 'actors', resp.data.cast.slice(0, 5));
             })
 
-        },getCastSeries(series){
+        }, getCastSeries(series) {
             const axiosOption = {
                 params: {
                     api_key: this.tmdbApiKey,
                     language: "it-IT"
                 }
             };
-            axios.get(`https://api.themoviedb.org/3/tv/${series.id}/credits`,axiosOption).then(resp=>{
-                Vue.set(series, 'actors', resp.data.cast.slice(0,5));
+            axios.get(`https://api.themoviedb.org/3/tv/${series.id}/credits`, axiosOption).then(resp => {
+                Vue.set(series, 'actors', resp.data.cast.slice(0, 5));
             })
+
+        },
+        onSelectChangeMovie(){
+            if(this.genreToFilterMovie === ""){
+                this.filteredDataMovie = this.movieList
+                return
+            }
+
+            const newFilteredDataMovie = this.movieList.filter((element)=>{
+                return element.genre_ids[1] === this.genreToFilterMovie
+            })
+
+            this.filteredDataMovie = newFilteredDataMovie
+
+        },onSelectChangeSeries(){
+            if(this.genreToFilterSeries === ""){
+                this.filteredDataSeries = this.tvSeriesList
+                return
+            }
+
+            const newFilteredDataSeries = this.tvSeriesList.filter((element)=>{
+                return element.genre_ids[1] === this.genreToFilterSeries
+                
+            })
+
+            this.filteredDataSeries = newFilteredDataSeries
 
         },
 
         //Questa funziona invoca al click o al keyup la funziona di ricerca film o serie tv
         searchToClick() {
 
+
+
             this.axiosSearch("movie");
             this.axiosSearch("tv");
-            
-        },
+
+        }
+
+
+    }, mounted() {
+        axios.get("https://api.themoviedb.org/3/genre/tv/list?api_key=103fbd9e3b904cfeed55ceaf1f1fc5a2&language=it-IT")
+            .then((resp) => {
+                this.genresTv = resp.data.genres
+            })
+
+        axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=103fbd9e3b904cfeed55ceaf1f1fc5a2&language=it-IT")
+            .then((resp) => {
+                this.genresMovie = resp.data.genres
+            })
+
     }
+
+
 })
+

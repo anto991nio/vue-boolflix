@@ -21,49 +21,65 @@
             <div>
                 <input type="text" v-model="textToSearch" @keyup.enter="searchToClick"
                     placeholder="Cerca Film o Serie TV">
+
                 <i class="fa fa-search" aria-hidden="true" @click="searchToClick"></i>
+
             </div>
-            
+
 
         </nav>
 
         <div class="filmcontainer display-flex column">
-            <div v-if="listafilm" class="barra">Film</div>
+            <div v-if="movieList" class="barra">Film
+                <select @change="onSelectChangeMovie" v-model="genreToFilterMovie">
+                    <option value=""> Tutti i generi</option>
+                    <option :value="genres.id" v-for="genres in genresMovie"> {{genres.name}}</option>
+                </select>
+            </div>
             <div class="display-flex flex-wrap">
 
-                <div class="card display-flex column" v-for="movies in movieList" @mouseover="getCast(movies)">
+                <div class="card display-flex column" v-for="movies in filteredDataMovie" @mouseover="getCast(movies)">
                     <img :src="getImgSrc(movies)" alt="immaginefilm">
                     <div class="imgcard">
                         <div class="credits">
                             <p>Titolo :{{movies.title}}</p>
                             <p>Titolo Orgiginale:{{movies.original_title}}</p>
-                            <p><span>Lingua: </span> <span :class="'flag-icon flag-icon-' + movies.original_language"></span></p>
+                            <p><span>Lingua: </span> <span
+                                    :class="'flag-icon flag-icon-' + movies.original_language"></span></p>
                             <P>Voto: <i class="fa fa-star" aria-hidden="true"
-                                v-for="stars in createStarsFull(movies.vote_average)"></i><i class="fa fa-star-o"
-                                aria-hidden="true" v-for="strasempty in createStarsEmpty(movies.vote_average)"></i></P>
-                                <p>Cast:</p>
-                                <p v-for="actors in movies.actors">{{actors.original_name}}</p>
+                                    v-for="stars in createStarsFull(movies.vote_average)"></i><i class="fa fa-star-o"
+                                    aria-hidden="true" v-for="strasempty in createStarsEmpty(movies.vote_average)"></i>
+                            </P>
+                            <p>Cast:</p>
+                            <p v-for="actors in movies.actors">{{actors.original_name}}</p>
                             <p>Trama:{{movies.overview}}</p>
                         </div>
                     </div>
 
                 </div>
             </div>
-            <div class="barra" v-if="listafilm">Serie </div>
+            <div class="barra" v-if="tvSeriesList">Serie
+                <select name="" id=""@change="onSelectChangeSeries" v-model="genreToFilterSeries">
+                    <option value=""> Tutti i generi</option>
+                    <option :value="genres.id" v-for="genres in genresTv"> {{genres.name}}</option>
+                </select>
+            </div>
             <div class="display-flex flex-wrap">
 
-                <div class="card display-flex column" v-for="series in tvSeriesList" @mouseover="getCastSeries(series)">
-                    <img  :src="getImgSrc(series)" alt="immagineserie">
+                <div class="card display-flex column" v-for="series in filteredDataSeries" @mouseover="getCastSeries(series)">
+                    <img :src="getImgSrc(series)" alt="immagineserie">
                     <div class="imgcard">
                         <div class="credits">
                             <p>Titolo : {{series.title}}</p>
                             <p>Titolo Orgiginale : {{series.original_title}}</p>
-                            <p> <span>Lingua</span> <span :class="'flag-icon flag-icon-'+ series.original_language"></span></p>
-                           <p>Voto: <i class="fa fa-star" aria-hidden="true"
-                            v-for="stars in createStarsFull(series.vote_average)"></i><i class="fa fa-star-o"
-                            aria-hidden="true" v-for="strasempty in createStarsEmpty(series.vote_average)"></i></p>
+                            <p> <span>Lingua</span> <span
+                                    :class="'flag-icon flag-icon-'+ series.original_language"></span></p>
+                            <p>Voto: <i class="fa fa-star" aria-hidden="true"
+                                    v-for="stars in createStarsFull(series.vote_average)"></i><i class="fa fa-star-o"
+                                    aria-hidden="true" v-for="strasempty in createStarsEmpty(series.vote_average)"></i>
+                            </p>
                             <p>Cast:</p>
-                                <p v-for="actors in series.actors">{{actors.original_name}}</p>
+                            <p v-for="actors in series.actors">{{actors.original_name}}</p>
                             <p>Trama : {{series.overview}}</p>
                         </div>
 
