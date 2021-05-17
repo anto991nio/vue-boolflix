@@ -123,3 +123,20 @@ input{
 .imgcard:hover .credits{
     display: inline-block;
 }
+
+@media all and (max-width: 1210px){
+    .filmcontainer .card{
+        flex-basis: calc(100%/2);
+    }
+    
+}
+
+@media all and (max-width: 810px){
+    .filmcontainer .card{
+        flex-basis: 100%;
+    }
+    input{
+        
+        width: 200px;
+    }
+}

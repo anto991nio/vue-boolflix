@@ -69,30 +69,28 @@ new Vue({
                return "img/832px-No-Image-Placeholder.svg.png"
             }
         },
-
-       /*  retrievesActors(id){
+       /*  getCast(movie){
+           const actors = []
             const axiosOption = {
                 params: {
                     api_key: this.tmdbApiKey,
                     language: "it-IT"
                 }
             };
-            axios.get("https://api.themoviedb.org/3/movie/" + id+"/credits", axiosOption)
-            .then((resp) => {
-                
-           
-
-                        return  this.actors=resp.data.cast
-                    
+            axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/credits`,axiosOption).then(resp=>{
+                debugger
+                this.actors = resp.data.cast;
                 
             })
-        } */
-
+            return actors
+        },
+ */
         //Questa funziona invoca al click o al keyup la funziona di ricerca film o serie tv
         searchToClick() {
 
             this.axiosSearch("movie");
             this.axiosSearch("tv");
+            
         },
     }
 })
