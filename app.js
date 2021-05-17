@@ -80,6 +80,17 @@ new Vue({
                 Vue.set(movie, 'actors', resp.data.cast.slice(0,5));
             })
 
+        },getCastSeries(series){
+            const axiosOption = {
+                params: {
+                    api_key: this.tmdbApiKey,
+                    language: "it-IT"
+                }
+            };
+            axios.get(`https://api.themoviedb.org/3/tv/${series.id}/credits`,axiosOption).then(resp=>{
+                Vue.set(series, 'actors', resp.data.cast.slice(0,5));
+            })
+
         },
 
         //Questa funziona invoca al click o al keyup la funziona di ricerca film o serie tv

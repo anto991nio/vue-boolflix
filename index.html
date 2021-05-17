@@ -52,7 +52,7 @@
             <div class="barra" v-if="listafilm">Serie </div>
             <div class="display-flex flex-wrap">
 
-                <div class="card display-flex column" v-for="series in tvSeriesList">
+                <div class="card display-flex column" v-for="series in tvSeriesList" @mouseover="getCastSeries(series)">
                     <img  :src="getImgSrc(series)" alt="immagineserie">
                     <div class="imgcard">
                         <div class="credits">
@@ -62,7 +62,8 @@
                            <p>Voto: <i class="fa fa-star" aria-hidden="true"
                             v-for="stars in createStarsFull(series.vote_average)"></i><i class="fa fa-star-o"
                             aria-hidden="true" v-for="strasempty in createStarsEmpty(series.vote_average)"></i></p>
-                            
+                            <p>Cast:</p>
+                                <p v-for="actors in series.actors">{{actors.original_name}}</p>
                             <p>Trama : {{series.overview}}</p>
                         </div>
 
