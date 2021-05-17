@@ -5,13 +5,121 @@
     padding: 0;
 }
 
-.flag-icon-en{
-    background-image: url(41G0-4KDjbL._AC_SX450_.jpg);
+body{
+    background-color: black;
+
+    padding-bottom: 20px;
+
 }
+
+.flag-icon-en{
+    background-image: url(img/41G0-4KDjbL._AC_SX450_.jpg);
+}
+
+
 nav{
     background-color: black;
+    z-index: 2;
+    justify-content: space-between;
+    height: 50px;
+    line-height: 50px;
+    padding:  0 20px;
+    position: fixed;
+    right: 0;
+    left: 0;
 }
 
 h1{
     color: rgb(229, 9, 20);
+}
+
+nav i{
+    color: white;
+}
+
+nav img{
+    height: 30px;
+    align-self: center;
+}
+
+input{
+    outline: none;
+    background-color: rgb(37, 37, 37);
+    border: none;
+    border-bottom: 2px solid white;
+    padding:  5px 10px;
+    color: white;
+    width: 300px;
+}
+
+.filmcontainer{
+    height: 100% ;
+    width: 100%;
+    background-color: black;
+
+    padding-top: 100px;
+    position: relative;
+    
+}
+
+.column{
+    flex-direction: column;
+}
+
+.display-flex{
+    display: flex;
+    position: relative;
+}
+
+.flex-wrap{
+    flex-wrap: wrap
+}
+
+.filmcontainer .card{
+    flex-basis: calc(100%/3);
+    position: relative;
+    align-items: center;
+    padding: 30px;
+
+    }
+
+.flex-wrap img{
+    width: 342px;
+    height: 513px;
+}
+
+.barra{
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin: 20px 0;
+    height: 50px;
+    line-height: 50px;
+    
+}
+
+
+.credits{
+    background-color: black;
+    color: white;
+    width: 342px;
+    height: 513px;
+    position: absolute;
+    padding: 10px;
+    display: none;
+    overflow: auto;
+    border: solid 1px white;
+}
+
+.credits *{
+    margin-bottom: 10px;
+}
+.imgcard{
+    height: 513px;
+    width: 342px;
+    position: absolute;
+}
+
+.imgcard:hover .credits{
+    display: inline-block;
 }

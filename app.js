@@ -4,7 +4,9 @@ new Vue({
         tmdbApiKey: "103fbd9e3b904cfeed55ceaf1f1fc5a2",
         textToSearch: "",
         movieList: [],
-        tvSeriesList: [],   
+        tvSeriesList: [],
+        listafilm:false
+        
     },
     methods: {
         // Questa funziona ricerca tramite la parola inserita dall'utente dilm e sierie tv
@@ -20,12 +22,15 @@ new Vue({
             axios.get("https://api.themoviedb.org/3/search/" + type, axiosOption)
                 .then((resp) => {
                     if (type === "movie") {
+                        this.listafilm=true
                         this.movieList = resp.data.results
 
                     } else if (type === "tv") {
                         this.tvSeriesList = resp.data.results.map((tvShow) => {
                             tvShow.original_title = tvShow.original_name
                             tvShow.title = tvShow.name
+                            this.listafilm=true
+
 
                             return tvShow
                         })
@@ -35,36 +40,53 @@ new Vue({
 
 
         },
-        //questa funzione genera le stelle in base alla votazione.
+        //questa funzione genera le stelle piene in base alla votazione.
         createStarsFull(rating) {
-
             let vote = Math.ceil(rating / 2);
-
             const stars = [];
-            
-            for (let i = 1; i <= 5; i++) {
-                if (i <= vote) {
-                    stars.push(1) 
-                } 
-        }
-
+            for (let i = 1; i <= vote; i++) {
+                stars.push(1)
+            }
             return stars;
-
         },
+        //questa funzione genera le stelle vuote in base alla votazione.
+
         createStarsEmpty(rating) {
-
             let vote = Math.ceil(rating / 2);
-
             const stars = [];
-            
             for (let i = vote; i < 5; i++) {
-                    stars.push(1) 
-                
-        }
-
+                stars.push(1)
+            }
             return stars;
 
         },
+
+        getImgSrc(movie){
+            if(movie.poster_path){
+                return `https://image.tmdb.org/t/p/w342${movie.poster_path}`;
+
+            }else{
+               return "img/832px-No-Image-Placeholder.svg.png"
+            }
+        },
+
+       /*  retrievesActors(id){
+            const axiosOption = {
+                params: {
+                    api_key: this.tmdbApiKey,
+                    language: "it-IT"
+                }
+            };
+            axios.get("https://api.themoviedb.org/3/movie/" + id+"/credits", axiosOption)
+            .then((resp) => {
+                
+           
+
+                        return  this.actors=resp.data.cast
+                    
+                
+            })
+        } */
 
         //Questa funziona invoca al click o al keyup la funziona di ricerca film o serie tv
         searchToClick() {
