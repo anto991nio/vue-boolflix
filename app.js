@@ -69,8 +69,7 @@ new Vue({
                return "img/832px-No-Image-Placeholder.svg.png"
             }
         },
-       /*  getCast(movie){
-           const actors = []
+        getCast(movie){
             const axiosOption = {
                 params: {
                     api_key: this.tmdbApiKey,
@@ -78,13 +77,11 @@ new Vue({
                 }
             };
             axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/credits`,axiosOption).then(resp=>{
-                debugger
-                this.actors = resp.data.cast;
-                
+                Vue.set(movie, 'actors', resp.data.cast.slice(0,5));
             })
-            return actors
+
         },
- */
+
         //Questa funziona invoca al click o al keyup la funziona di ricerca film o serie tv
         searchToClick() {
 

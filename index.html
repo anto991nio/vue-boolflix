@@ -31,7 +31,7 @@
             <div v-if="listafilm" class="barra">Film</div>
             <div class="display-flex flex-wrap">
 
-                <div class="card display-flex column" v-for="movies in movieList">
+                <div class="card display-flex column" v-for="movies in movieList" @mouseover="getCast(movies)">
                     <img :src="getImgSrc(movies)" alt="immaginefilm">
                     <div class="imgcard">
                         <div class="credits">
@@ -41,7 +41,8 @@
                             <P>Voto: <i class="fa fa-star" aria-hidden="true"
                                 v-for="stars in createStarsFull(movies.vote_average)"></i><i class="fa fa-star-o"
                                 aria-hidden="true" v-for="strasempty in createStarsEmpty(movies.vote_average)"></i></P>
-                               <!--  <span v-for="actors in  getCast(movies)">{{actors.original_name}}</span> -->
+                                <p>Cast:</p>
+                                <p v-for="actors in movies.actors">{{actors.original_name}}</p>
                             <p>Trama:{{movies.overview}}</p>
                         </div>
                     </div>
